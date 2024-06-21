@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Movie</title>
+</head>
+<body>
+    <h2>Update Movie</h2>
+    <form th:action="@{/movie/update}" method="post">
+        <table>
+            <tr>
+                <td>Movie ID:</td>
+                <td><input type="text" name="movieId" th:value="${movieVO.movieId}" readonly></td>
+            </tr>
+            <tr>
+                <td>Movie Name:</td>
+                <td><input type="text" name="movieName" th:value="${movieVO.movieName}" required></td>
+            </tr>
+            <tr>
+                <td>Rating:</td>
+                <td>
+                    <select name="movieRating">
+                        <option value="1" th:selected="${movieVO.movieRating == 1}">普遍級</option>
+                        <option value="2" th:selected="${movieVO.movieRating == 2}">保護級</option>
+                        <option value="3" th:selected="${movieVO.movieRating == 3}">輔導級</option>
+                        <option value="4" th:selected="${movieVO.movieRating == 4}">限制級</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Director:</td>
+                <td><input type="text" name="director" th:value="${movieVO.director}" required></td>
+            </tr>
+            <tr>
+                <td>Actor:</td>
+                <td><input type="text" name="actor" th:value="${movieVO.actor}" required></td>
+            </tr>
+            <tr>
+                <td>Release Date:</td>
+                <td><input type="date" name="releaseDate" th:value="${movieVO.releaseDate}" required></td>
+            </tr>
+            <tr>
+                <td>End Date:</td>
+                <td><input type="date" name="endDate" th:value="${movieVO.endDate}" required></td>
+            </tr>
+            <tr>
+                <td>Runtime:</td>
+                <td><input type="number" name="runtime" th:value="${movieVO.runtime}" required></td>
+            </tr>
+            <tr>
+                <td>Introduction:</td>
+                <td><textarea name="introduction" required th:text="${movieVO.introduction}"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Update Movie"></td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    <a th:href="@{/movie/listAllMovies}">Back to Movie List</a>
+</body>
+</html>

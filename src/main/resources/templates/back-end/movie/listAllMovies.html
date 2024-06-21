@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Movies</title>
+</head>
+<body>
+    <h2>All Movies</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Movie ID</th>
+                <th>Movie Name</th>
+                <th>Rating</th>
+                <th>Director</th>
+                <th>Actor</th>
+                <th>Release Date</th>
+                <th>End Date</th>
+                <th>Runtime (minutes)</th>
+                <th>Introduction</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="movie : ${movieListData}">
+                <td th:text="${movie.movieId}">Movie ID</td>
+                <td th:text="${movie.movieName}">Movie Name</td>
+                <td>
+                    <span th:switch="${movie.movieRating}">
+                        <span th:case="1">普遍級</span>
+                        <span th:case="2">保護級</span>
+                        <span th:case="3">輔導級</span>
+                        <span th:case="4">限制級</span>
+                    </span>
+                </td>
+                <td th:text="${movie.director}">Director</td>
+                <td th:text="${movie.actor}">Actor</td>
+                <td th:text="${#dates.format(movie.releaseDate, 'yyyy-MM-dd')}">Release Date</td>
+                <td th:text="${#dates.format(movie.endDate, 'yyyy-MM-dd')}">End Date</td>
+                <td th:text="${movie.runtime}">Runtime</td>
+                <td th:text="${movie.introduction}">Introduction</td>
+                <td>
+                    <form th:action="@{/movie/getOne_For_Update}" method="post">
+                        <input type="hidden" name="movieId" th:value="${movie.movieId}">
+                        <input type="submit" value="Edit">
+                    </form>
+                    <form th:action="@{/movie/delete}" method="post">
+                        <input type="hidden" name="movieId" th:value="${movie.movieId}">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this movie?');">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/movie/addMovie}">Add New Movie</a>
+</body>
+</html>
